@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        h1 {
+            color: #3498db;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-cancel {
+            background-color: #95a5a6;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Search Students</h1>
+
+    <form th:action="@{/students/search}" method="get">
+        <div class="form-group">
+            <label>Keyword (Name or Major):</label>
+            <input type="text" name="keyword" th:value="${keyword}" />
+        </div>
+        <button type="submit" class="btn">Search</button>
+        <a th:href="@{/students/list}" class="btn btn-cancel">Back to List</a>
+    </form>
+
+    <div th:if="${keyword}">
+        <h2>Results:</h2>
+        <ul>
+            <li th:each="student, iterStat : ${students}">
+                <strong th:text="${student.name}">Name</strong> -
+                <span th:text="${student.email}">Email</span> -
+                <em th:text="${student.major}">Major</em>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
